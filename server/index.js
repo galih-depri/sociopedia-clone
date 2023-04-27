@@ -8,6 +8,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
+import { register } from "./controllers/auth.js";
 
 /* Configuration */
 const __filename = fileURLToPath(import.meta.url);
@@ -47,4 +48,7 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-//20:58
+// Routes with Files
+app.post("/auth/register", upload.single("picture"), register);
+
+//43:22
