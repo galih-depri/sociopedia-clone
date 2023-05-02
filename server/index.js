@@ -10,6 +10,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { register } from "./controllers/auth.js";
 
+// Routes import
+import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/user.js";
+import postRoutes from "./routes/posts.js";
+
 /* Configuration */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -51,4 +56,9 @@ mongoose
 // Routes with Files
 app.post("/auth/register", upload.single("picture"), register);
 
-//43:22
+// Routes
+app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
+app.use("/posts", postRoutes);
+
+//1:13:22
