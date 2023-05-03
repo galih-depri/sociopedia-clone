@@ -8,12 +8,18 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
-import { register } from "./controllers/auth.js";
 
-// Routes import
+// Controller imports
+import { register } from "./controllers/auth.js";
+import { createPost } from "./controllers/posts.js";
+
+// Routes imports
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/user.js";
 import postRoutes from "./routes/posts.js";
+
+//  Middleware imports
+import { verifyToken } from "./middleware/auth.js";
 
 /* Configuration */
 const __filename = fileURLToPath(import.meta.url);
@@ -55,6 +61,7 @@ mongoose
 
 // Routes with Files
 app.post("/auth/register", upload.single("picture"), register);
+app.post("/posts", verifyToken, upload.single("picture"), createPost);
 
 // Routes
 app.use("/auth", authRoutes);
