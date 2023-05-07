@@ -9,6 +9,8 @@ import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
 
+dotenv.config();
+
 // Controller imports
 import { register } from "./controllers/auth.js";
 import { createPost } from "./controllers/posts.js";
@@ -49,15 +51,22 @@ const upload = multer({ storage });
 
 // Mongoose Setup
 const PORT = process.env.PORT || 6001;
+mongoose.set("strictQuery", true);
+
+console.log("Connecting to DB...");
+
 mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://galdep:gegedepri29@cluster0.fwoitnr.mongodb.net/?retryWrites=true&w=majority"
+  )
   .then(() => {
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+
+    /* ADD DATA ONE TIME */
+    // User.insertMany(users);
+    // Post.insertMany(posts);
   })
-  .catch((err) => console.log(err));
+  .catch((error) => console.log(`${error} did not connect`));
 
 // Routes with Files
 app.post("/auth/register", upload.single("picture"), register);
@@ -68,4 +77,4 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 
-//1:13:22
+//1:35:22
