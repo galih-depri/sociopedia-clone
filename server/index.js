@@ -56,11 +56,9 @@ mongoose.set("strictQuery", true);
 console.log("Connecting to DB...");
 
 mongoose
-  .connect(
-    "mongodb+srv://galdep:gegedepri29@cluster0.fwoitnr.mongodb.net/?retryWrites=true&w=majority"
-  )
+  .connect(process.env.MONGO_URL)
   .then(() => {
-    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+    app.listen(PORT, () => console.log(`Running on Port: ${PORT}`));
 
     /* ADD DATA ONE TIME */
     // User.insertMany(users);
