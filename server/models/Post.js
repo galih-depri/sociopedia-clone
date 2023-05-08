@@ -4,15 +4,15 @@ const postSchema = new mongoose.Schema(
   {
     userId: {
       type: String,
-      rrequired: true,
+      required: true,
     },
     firstName: {
       type: String,
-      rrequired: true,
+      required: true,
     },
     lastName: {
       type: String,
-      rrequired: true,
+      required: true,
     },
     location: String,
     description: String,

@@ -11,6 +11,13 @@ import { fileURLToPath } from "url";
 
 dotenv.config();
 
+// Models import
+import User from "./models/User.js";
+import Post from "./models/Post.js";
+
+// Data import
+import { users, posts } from "./data/index.js";
+
 // Controller imports
 import { register } from "./controllers/auth.js";
 import { createPost } from "./controllers/posts.js";
@@ -58,11 +65,12 @@ console.log("Connecting to DB...");
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {
+    console.log("DB connected...");
     app.listen(PORT, () => console.log(`Running on Port: ${PORT}`));
 
     /* ADD DATA ONE TIME */
-    // User.insertMany(users);
-    // Post.insertMany(posts);
+    User.insertMany(users);
+    Post.insertMany(posts);
   })
   .catch((error) => console.log(`${error} did not connect`));
 
